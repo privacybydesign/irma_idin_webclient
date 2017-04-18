@@ -1,17 +1,22 @@
 module.exports = function (grunt) {
     // Setup urls for the keyshare server, api server, and irma_js
     // these are used to configure the webclient
-    var api_server_url, api_web_url, irma_js_url;
+    var api_server_url, api_web_url, irma_js_url, idin_server_url;
     if ( (typeof(grunt.option("api_server_url")) === "undefined") ) {
-        console.log("INFO: set api_server_url (possibly also irma_js_url) to enable email issuing");
+        console.log("INFO: set api_server_url (possibly also irma_js_url) to enable issuing");
+    }
+    if ( (typeof(grunt.option("idin_server_url")) === "undefined") ) {
+        console.log("INFO: set idin_server_url to enable app");
     }
 
+    idin_server_url = grunt.option("idin_server_url");
     api_server_url = grunt.option("api_server_url") + "/api/v2/";
     api_web_url = grunt.option("api_web_url") || grunt.option("api_server_url");
     api_web_url += "/server/";
     irma_js_url = grunt.option("irma_js_url") || grunt.option("api_server_url");
     irma_js_url += "/client/";
 
+    console.log("idin_server_url:", idin_server_url);
     console.log("api_server_url:", api_server_url);
     console.log("api_web_url:", api_web_url);
     console.log("irma_js_url:", irma_js_url);
@@ -50,6 +55,9 @@ module.exports = function (grunt) {
                     }, {
                         pattern: /\[IRMA_JS_URL\]/g,
                         replacement: irma_js_url,
+                    }, {
+                        pattern: /\[IDIN_SERVER_URL\]/g,
+                        replacement: idin_server_url,
                     },
                   ],
                 },
