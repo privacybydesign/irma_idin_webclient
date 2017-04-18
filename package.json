@@ -1,0 +1,13 @@
+{
+  "name": "irma_idin_webclient",
+  "version": "0.0.1",
+  "description": "IRMA iDIN webclient",
+  "author": "Fabian van den Broek, Sietse Ringers, Radboud University, Privacy by Design Foundation",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-string-replace": "^1.2.0"
+  }
+}
