@@ -1,6 +1,16 @@
 $(function() {
-    var translTable = {"zipcode": "Postcode", "address":"Adres" , "city":"Stad", "initials":"Initialen",
-        "familyName":"Achternaam", "gender":"Geslacht", "dateOfBirth":"Geboortedatum", "country":"Land", "telephone":"Telefoonnummer", "email":"e-mailadres"};
+    var translTable = {
+        "zipcode": "Postcode",
+        "address": "Adres",
+        "city": "Stad",
+        "initials": "Initialen",
+        "familyname": "Achternaam",
+        "gender": "Geslacht",
+        "dateofbirth": "Geboortedatum",
+        "country": "Land",
+        "telephone": "Telefoonnummer",
+        "email": "e-mailadres"
+    };
 
     var doneURL = "done.html";
 
