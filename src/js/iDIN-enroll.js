@@ -9,7 +9,12 @@ $(function() {
         "dateofbirth": "Geboortedatum",
         "country": "Land",
         "telephone": "Telefoonnummer",
-        "email": "e-mailadres"
+        "email": "E-mailadres",
+        "over12": "Over 12",
+        "over16": "Over 16",
+        "over18": "Over 18",
+        "over21": "Over 21",
+        "over65": "Over 65"
     };
 
     var doneURL = "done.html";
@@ -25,10 +30,12 @@ $(function() {
         }
     }
 
-    function displayAttributes (attr, translator){
-        $.each(attr,function(key, value){
-            addTableLine(translator.hasOwnProperty(key)?translator[key]:key, value);
-        })
+    function displayAttributes (creds, translator) {
+        $.each(creds, function(i, cred) {
+            $.each(cred.attributes, function(key, value) {
+                addTableLine(translator.hasOwnProperty(key) ? translator[key] : key, value);
+            });
+        });
     }
 
     //set issuing functionality to button
@@ -37,24 +44,23 @@ $(function() {
         $(".form-group").removeClass("has-error");
         $("#alert_box").empty();
         //disable enroll button
-        $("#enroll").prop('disabled',true);
+        $("#enroll").prop('disabled', true);
         IRMA.issue(Cookies.get("jwt"),
             function() {
-                showSuccess("iDIN data successfully issued");
                 window.location.replace(doneURL);
             },
-            function() {
-                $("#enroll").prop('disabled',false);
-                showWarning;
-            },
-            function() {
+            function(msg) {
                 $("#enroll").prop('disabled', false);
-                showError;
+                showWarning(msg);
+            },
+            function(msg) {
+                $("#enroll").prop('disabled', false);
+                showError(msg);
             });
     });
 
     //decode the issuing JWT and show the values in a table
     var decoded = jwt_decode(Cookies.get("jwt"));
-    displayAttributes(decoded.iprequest.request.credentials[0].attributes, translTable)
+    displayAttributes(decoded.iprequest.request.credentials, translTable)
 
 });
