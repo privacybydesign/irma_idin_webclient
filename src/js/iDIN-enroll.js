@@ -19,10 +19,10 @@ $(function() {
 
     var doneURL = "done.html";
 
-    function addTableLine(head, data){
+    function addTableLine(table, head, data){
         if (data !== null) {
-            $('#attributeTable')
-                .append($('<tr>')
+            //$('#attributeTable')
+            table.append($('<tr>')
                     .append($('<th>').text(head).attr("scope", "row"))
                     .append($('<td>').text(data)
                     )
@@ -30,11 +30,18 @@ $(function() {
         }
     }
 
+
     function displayAttributes (creds, translator) {
         $.each(creds, function(i, cred) {
-            $.each(cred.attributes, function(key, value) {
-                addTableLine(translator.hasOwnProperty(key) ? translator[key] : key, value);
-            });
+            if (cred.credential === "pbdf.pbdf.idin"){
+                $.each(cred.attributes, function(key, value) {
+                    addTableLine($('#idinTable'),translator.hasOwnProperty(key) ? translator[key] : key, value);
+                });
+            } else {
+                $.each(cred.attributes, function(key, value) {
+                    addTableLine($('#ageTable'),translator.hasOwnProperty(key) ? translator[key] : key, value);
+                });
+            }
         });
     }
 
