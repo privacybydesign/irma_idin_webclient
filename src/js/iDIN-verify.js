@@ -1,6 +1,6 @@
 $(function() {
     var success_fun = function(data) {
-        $("#result_status").html("Success!");
+        $("#result_status").html("Succes!");
         $("#result_header").html("Resultaat");
         var bd = jwt_decode(data).attributes["pbdf.pbdf.idinData.dateOfBirth"];
         $("#token-content").html("<b>Uw geboortedatum is:</b> " + bd);
@@ -16,7 +16,7 @@ $(function() {
         console.log("De verificatie is niet gelukt!");
         console.log("Error data:", data);
         $("#result_header").html("Resultaat");
-        $("#result_status").html("Failure!");
+        $("#result_status").html("Mislukt!");
     }
 
     $("#verify_idin_bd_btn").on("click", function() {

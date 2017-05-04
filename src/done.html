@@ -4,8 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <meta name="irma-web-server" value="[API_WEB_URL]" />
+    <meta name="irma-api-server" value="[API_SERVER_URL]" />
+
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <script type="text/javascript" src="bower_components/jwt-decode/build/jwt-decode.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="[IRMA_JS_URL]irma.js"></script>
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/iDIN-verify.js"></script>
@@ -32,10 +37,10 @@
 
             <p>
                 Je kunt ze nu gebruiken op iedere website die deze attributen accepteert.<br/>
-                Als je direct één van je nieuwe attributen wilt testen, druk dan op de onderstaande knop.
+                Als je direct een van je nieuwe attributen wilt testen, druk dan op de onderstaande knop.
             </p>
 
-            <button id="verify_idin_bd_btn" class="btn btn-primary">Test Attributes</button>
+            <button id="verify_idin_bd_btn" class="btn btn-primary">Test Attribuut</button>
 
             <h3 id="result_header"></h3>
             <h4 id="result_status"></h4>
