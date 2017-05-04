@@ -2,7 +2,7 @@ $(function() {
     var success_fun = function(data) {
         $("#result_status").html("Succes!");
         $("#result_header").html("Resultaat");
-        var bd = jwt_decode(data).attributes["pbdf.pbdf.idinData.dateOfBirth"];
+        var bd = jwt_decode(data).attributes["pbdf.pbdf.idin.dateofbirth"];
         $("#token-content").html("<b>Uw geboortedatum is:</b> " + bd);
         //TODO: check voor verjaardag
     }
