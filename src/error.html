@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> Basis attributen laden met iDIN - ERROR </title>
+    <title><%= error_title %></title>
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -24,11 +24,9 @@
             </a>
         </div>
         <div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-            <h2>Foutmelding</h2>
-
+            <h2><%= error_header %></h2>
             <div id="alert_box"></div>
-
-            <p>Keer terug naar de <a href="index.html">iDIN issue pagina</a>, of naar de <a href="../">algemene uitgifte pagina</a></p>
+            <p><%= error_text1 %><%= error_text2 %></p>
             <hr />
         </div>
     </div>

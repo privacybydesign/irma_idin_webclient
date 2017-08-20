@@ -17,7 +17,7 @@
     <script type="text/javascript" src="js/common.js"></script>
     <script type="text/javascript" src="js/iDIN-enroll.js"></script>
 
-    <title> Basis attributen laden met iDIN </title>
+    <title><%= enroll_title %></title>
 </head>
 <body>
 
@@ -30,23 +30,22 @@
             </a>
         </div>
         <div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-            <h2>Beschikbare attributen</h2>
+            <h2><%= enroll_header %></h2>
 
             <div id="alert_box"></div>
 
-            <p>De volgende attributen zijn beschikbaar gesteld door uw bank:</p>
+            <p><%= enroll_received_attributes %></p>
             <table class="table" id="idinTable">
                 <tbody></tbody>
             </table>
             <br/>
-            <p>De volgende attributen zijn daaruit afgeleid:</p>
+            <p><%= enroll_derived_attributes %></p>
             <table class="table" id="ageTable">
                 <tbody></tbody>
             </table>
 
-            <p>Klik de Laad attributen knop om deze attributen in uw IRMA app te laden.</p>
-            <button id="enroll" class="btn btn-primary">Laad attributen in uw IRMA app</button>
-
+            <p><%= enroll_clicktoload %></p>
+            <button id="enroll" class="btn btn-primary"><%= enroll_load_button %></button>
             <hr />
         </div>
     </div>

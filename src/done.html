@@ -19,34 +19,28 @@
         var server = "[IDIN_SERVER_URL]/api/v1/idin";
     </script>
 
-    <title>iDIN Attributen uitgegeven</title>
+    <title><%= done_title %></title>
 </head>
 
 <body>
 <div class="container">
     <div class="row">
         <div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
-            <h2>iDIN attributen zijn geladen</h2>
+            <h2><%= done_header %></h2>
 
             <div id="alert_box"></div>
 
-            <p>
-                Gefeliciteerd! Uw attributen zijn nu in uw IRMA app geladen.
-                Daar zijn ze nu zichtbaar.
-            </p>
+            <p><%= done_text1 %></p>
+            <p><%= done_text2 %></p>
+            <p><%= done_text3 %></p>
 
-            <p>
-                U kunt ze nu gebruiken op iedere website die deze attributen accepteert.<br/>
-                Door op de knop hieronder te klikken kunt u dit testen; u toont dan uw geboortedatum-attribuut.
-            </p>
-
-            <button id="verify_idin_bd_btn" class="btn btn-primary">Toon geboortedatum-attribuut</button>
+            <button id="verify_idin_bd_btn" class="btn btn-primary"><%= done_show_button %></button>
 
             <h3 id="result_header"></h3>
             <h4 id="result_status"></h4>
             <p id="token-content"></p>
 
-            <a href="/uitgifte/">Keer terug naar de attribuut-uitgifte pagina</a>
+            <a href=".."><%= done_return %></a>
         </div>
     </div>
 </div>

@@ -1,25 +1,27 @@
 module.exports = function (grunt) {
     // Setup urls for the keyshare server, api server, and irma_js
     // these are used to configure the webclient
-    var api_server_url, api_web_url, irma_js_url, idin_server_url;
     if ( (typeof(grunt.option("api_server_url")) === "undefined") ) {
         console.log("INFO: set api_server_url (possibly also irma_js_url) to enable issuing");
     }
     if ( (typeof(grunt.option("idin_server_url")) === "undefined") ) {
         console.log("INFO: set idin_server_url to enable app");
     }
+    if ( (typeof(grunt.option("language")) === "undefined") ) {
+        console.log("INFO: No language chosen, assuming nl");
+    }
 
-    idin_server_url = grunt.option("idin_server_url");
-    api_server_url = grunt.option("api_server_url") + "/api/v2/";
-    api_web_url = grunt.option("api_web_url") || grunt.option("api_server_url");
-    api_web_url += "/server/";
-    irma_js_url = grunt.option("irma_js_url") || grunt.option("api_server_url");
-    irma_js_url += "/client/";
+    var conf = {
+        idin_server_url: grunt.option("idin_server_url"),
+        api_server_url: grunt.option("api_server_url") + "/api/v2/",
+        api_web_url: grunt.option("api_web_url") || grunt.option("api_server_url"),
+        irma_js_url: grunt.option("irma_js_url") || grunt.option("api_server_url"),
+        language: grunt.option("language") || "nl",
+    }
+    conf.api_web_url += "/server/";
+    conf.irma_js_url += "/client/";
 
-    console.log("idin_server_url:", idin_server_url);
-    console.log("api_server_url:", api_server_url);
-    console.log("api_web_url:", api_web_url);
-    console.log("irma_js_url:", irma_js_url);
+    console.log("Configuration:", conf);
 
     grunt.initConfig({
         copy: {
@@ -30,9 +32,15 @@ module.exports = function (grunt) {
                 dest: "build/bower_components",
                 expand: "true",
             },
-            examples: {
+            non_html: {
                 cwd: "src",
                 src: ["**/*", "!**/*.html"],
+                dest: "build/",
+                expand: "true",
+            },
+            translated: {
+                cwd: "translated/" + conf.language,
+                src: ["**/*.html"],
                 dest: "build/",
                 expand: "true",
             },
@@ -42,24 +50,26 @@ module.exports = function (grunt) {
                 files: [{
                     cwd: "./src",
                     src: ["**/*.html"],
-                    dest: "build/",
+                    dest: "translated/",
                     expand: "true",
                 }],
                 options: {
                     replacements: [{
                         pattern: /\[API_SERVER_URL\]/g,
-                        replacement: api_server_url,
+                        replacement: conf.api_server_url,
                     }, {
                         pattern: /\[API_WEB_URL\]/g,
-                        replacement: api_web_url,
+                        replacement: conf.api_web_url,
                     }, {
                         pattern: /\[IRMA_JS_URL\]/g,
-                        replacement: irma_js_url,
+                        replacement: conf.irma_js_url,
                     }, {
                         pattern: /\[IDIN_SERVER_URL\]/g,
-                        replacement: idin_server_url,
-                    },
-                  ],
+                        replacement: conf.idin_server_url,
+                    }, {
+                        pattern: /\[LANGUAGE\]/g,
+                        replacement: conf.language,
+                    }],
                 },
             },
         },
@@ -69,21 +79,70 @@ module.exports = function (grunt) {
                     "./src/**/*",
                     "!./src/**/*.html",
                 ],
-                tasks: ["copy"],
+                tasks: ["copy:non_html"],
             },
             htmlfiles: {
                 files: [
                     "./src/**/*.html",
                 ],
-                tasks: ["string-replace"],
+                tasks: ["translate"],
+            },
+            translationfiles: {
+                files: [
+                    "./src/languages/*",
+                ],
+                tasks: ["translate"],
             },
         },
+        multi_lang_site_generator: {
+            default: {
+                options: {
+                    vocabs: ["en", "nl"],
+                    vocab_directory: "src/languages",
+                    output_directory: "translated",
+                },
+                files: {
+                    "index.html": ["translated/index.html"],
+                    "done.html": ["translated/done.html"],
+                    "error.html": ["translated/error.html"],
+                    "enroll.html": ["translated/enroll.html"],
+                },
+            },
+        },
+        json_generator: {
+            configuration: {
+                dest: "build/conf.json",
+                options: conf,
+            },
+        }
     });
 
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-string-replace");
+    grunt.loadNpmTasks("grunt-multi-lang-site-generator");
+    grunt.loadNpmTasks("grunt-json-generator");
 
-    grunt.registerTask("default", ["copy", "string-replace", "watch"]);
-    grunt.registerTask("build", ["copy", "string-replace"]);
+    grunt.registerTask("default", [
+        "copy:non_html",
+        "json_generator",
+        "copy:bower_bundle",
+        "string-replace",
+        "multi_lang_site_generator",
+        "copy:translated",
+        "watch",
+    ]);
+    grunt.registerTask("build", [
+        "copy:non_html",
+        "json_generator",
+        "copy:bower_bundle",
+        "string-replace",
+        "multi_lang_site_generator",
+        "copy:translated",
+    ]);
+    grunt.registerTask("translate", [
+        "string-replace",
+        "multi_lang_site_generator",
+        "copy:translated",
+    ]);
 };
