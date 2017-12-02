@@ -1,22 +1,4 @@
 $(function() {
-    var translTable = {
-        "zipcode": "Postcode",
-        "address": "Adres",
-        "city": "Stad",
-        "initials": "Initialen",
-        "familyname": "Achternaam",
-        "gender": "Geslacht",
-        "dateofbirth": "Geboortedatum",
-        "country": "Land",
-        "telephone": "Telefoonnummer",
-        "email": "E-mailadres",
-        "over12": "Over 12",
-        "over16": "Over 16",
-        "over18": "Over 18",
-        "over21": "Over 21",
-        "over65": "Over 65"
-    };
-
     var doneURL = "done.html";
 
     function addTableLine(table, head, data){
@@ -31,15 +13,15 @@ $(function() {
     }
 
 
-    function displayAttributes (creds, translator) {
+    function displayAttributes (creds) {
         $.each(creds, function(i, cred) {
             if (cred.credential === "pbdf.pbdf.idin"){
                 $.each(cred.attributes, function(key, value) {
-                    addTableLine($('#idinTable'),translator.hasOwnProperty(key) ? translator[key] : key, value);
+                    addTableLine($('#idinTable'), strings.hasOwnProperty("attribute_" + key) ? strings["attribute_" + key] : key, value);
                 });
             } else {
                 $.each(cred.attributes, function(key, value) {
-                    addTableLine($('#ageTable'),translator.hasOwnProperty(key) ? translator[key] : key, value);
+                    addTableLine($('#ageTable'), strings.hasOwnProperty("attribute_" + key) ? strings["attribute_" + key] : key, value);
                 });
             }
         });
@@ -68,6 +50,6 @@ $(function() {
 
     //decode the issuing JWT and show the values in a table
     var decoded = jwt_decode(Cookies.get("jwt"));
-    displayAttributes(decoded.iprequest.request.credentials, translTable)
+    displayAttributes(decoded.iprequest.request.credentials)
 
 });

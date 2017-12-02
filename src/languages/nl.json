@@ -20,5 +20,27 @@
 	"done_text2": "U kunt ze nu gebruiken op iedere website die deze attributen accepteert.",
 	"done_text3": "Door op de knop hieronder te klikken kunt u dit testen; u toont dan uw geboortedatum-attribuut.",
 	"done_show_button": "Toon geboortedatum-attribuut",
-	"done_return": "Keer terug naar de attribuut-uitgifte pagina"
+	"done_return": "Keer terug naar de attribuut-uitgifte pagina",
+
+	"attribute_zipcode": "Postcode",
+	"attribute_address": "Adres",
+	"attribute_city": "Stad",
+	"attribute_initials": "Initialen",
+	"attribute_familyname": "Achternaam",
+	"attribute_gender": "Geslacht",
+	"attribute_dateofbirth": "Geboortedatum",
+	"attribute_country": "Land",
+	"attribute_telephone": "Telefoonnummer",
+	"attribute_email": "E-mailadres",
+	"attribute_over12": "Over 12",
+	"attribute_over16": "Over 16",
+	"attribute_over18": "Over 18",
+	"attribute_over21": "Over 21",
+	"attribute_over65": "Over 65",
+
+	"verify_success": "Succes!",
+	"verify_result": "Resultaat",
+	"verify_birthdate": "Uw geboortedatum is:",
+	"verify_cancelled": "Geannuleerd!",
+	"verify_failed": "Mislukt!"
 }

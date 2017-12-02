@@ -1,22 +1,22 @@
 $(function() {
     var success_fun = function(data) {
-        $("#result_status").html("Succes!");
-        $("#result_header").html("Resultaat");
+        $("#result_status").html(strings.verify_success);
+        $("#result_header").html(strings.verify_result);
         var bd = jwt_decode(data).attributes["pbdf.pbdf.idin.dateofbirth"];
-        $("#token-content").html("<b>Uw geboortedatum is:</b> " + bd);
-        //TODO: check voor verjaardag
+        $("#token-content").html("<b>" + strings.verify_birthdate + "</b> " + bd);
+        //TODO: check for birthdate
     }
 
     var cancel_fun = function(data) {
-        $("#result_header").html("Resultaat");
-        $("#result_status").html("Geannuleerd!");
+        $("#result_header").html(strings.verify_result);
+        $("#result_status").html(strings.verify_cancelled);
     }
 
     var error_fun = function(data) {
-        console.log("De verificatie is niet gelukt!");
+        console.log("Verification failed!");
         console.log("Error data:", data);
-        $("#result_header").html("Resultaat");
-        $("#result_status").html("Mislukt!");
+        $("#result_header").html(strings.verify_result);
+        $("#result_status").html(strings.verify_failed);
     }
 
     $("#verify_idin_bd_btn").on("click", function() {
