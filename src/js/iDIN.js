@@ -1,4 +1,4 @@
-$(function() {
+getSetupFromJson(function() {
 
 
     function getBanks (){

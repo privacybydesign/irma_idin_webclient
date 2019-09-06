@@ -1,4 +1,4 @@
-$(function() {
+getSetupFromJson(function() {
     var success_fun = function(data) {
         $("#result_status").html(strings.verify_success);
         $("#result_header").html(strings.verify_result);
@@ -19,6 +19,14 @@ $(function() {
         $("#result_status").html(strings.verify_failed);
     }
 
+    function irma_session_failed (msg) {
+        if(msg === 'CANCELLED') {
+            cancel_fun(msg);
+        } else {
+            error_fun(msg);
+        }
+    }
+
     $("#verify_idin_bd_btn").on("click", function() {
         $("#result_header").text("");
         $("#result_status").text("");
@@ -27,12 +35,12 @@ $(function() {
             type: "GET",
             url: server + "/verify",
             success: function(data) {
-                IRMA.verify(data, success_fun, cancel_fun, error_fun);
+                irma.startSession(conf.irma_server_url, data, "publickey")
+                    .then(({sessionPtr, token}) => irma.handleSession(sessionPtr, {...irma_server_conf, token}))
+                    .then(success_fun, irma_session_failed);
             },
             error: showError,
         });
-
-        IRMA.verify(jwt, success_fun, error_fun);
     });
 
 });
