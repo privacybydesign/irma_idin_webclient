@@ -1,4 +1,4 @@
-$(function() {
+getSetupFromJson(function() {
     var doneURL = "done.html";
 
     function addTableLine(table, head, data){
@@ -27,6 +27,15 @@ $(function() {
         });
     }
 
+    function irma_session_failed (msg) {
+        $("#enroll").prop('disabled', false);
+        if(msg === 'CANCELLED') {
+            showWarning(msg);
+        } else {
+            showError(msg);
+        }
+    }
+
     //set issuing functionality to button
     $("#enroll").on("click", function() {
         // Clear errors
@@ -34,18 +43,12 @@ $(function() {
         $("#alert_box").empty();
         //disable enroll button
         $("#enroll").prop('disabled', true);
-        IRMA.issue(Cookies.get("jwt"),
-            function() {
+
+        irma.startSession(conf.irma_server_url, Cookies.get("jwt"), "publickey")
+            .then(({sessionPtr, token}) => irma.handleSession(sessionPtr, {...irma_server_conf, token}))
+            .then(() => {
                 window.location.replace(doneURL);
-            },
-            function(msg) {
-                $("#enroll").prop('disabled', false);
-                showWarning(msg);
-            },
-            function(msg) {
-                $("#enroll").prop('disabled', false);
-                showError(msg);
-            });
+            }, irma_session_failed);
     });
 
     //decode the issuing JWT and show the values in a table

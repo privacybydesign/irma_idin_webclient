@@ -10,6 +10,10 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-json-generator": "^0.1.0",
     "grunt-multi-lang-site-generator": "^0.6.0",
-    "grunt-string-replace": "^1.2.0"
+    "@privacybydesign/irmajs": "^0.1.5",
+    "jquery": "~2.1.4",
+    "js-cookie": "2.1.3",
+    "jwt-decode": "~1.4.0",
+    "bootstrap": "~3.3.6"
   }
 }
