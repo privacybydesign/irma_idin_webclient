@@ -9,6 +9,7 @@ getSetupFromJson(function() {
                     .append($('<td>').text(data)
                     )
                 );
+            table.parent().show();
         }
     }
 
