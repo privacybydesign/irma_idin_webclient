@@ -9,7 +9,6 @@ getSetupFromJson(function() {
                     .append($('<td>').text(data)
                     )
                 );
-            table.parent().show();
         }
     }
 
@@ -18,12 +17,14 @@ getSetupFromJson(function() {
         $.each(creds, function(i, cred) {
             if (cred.credential === conf.idin_credential_id){
                 $.each(cred.attributes, function(key, value) {
-                    addTableLine($('#idinTable'), strings.hasOwnProperty("attribute_" + key) ? strings["attribute_" + key] : key, value);
+                    if (key.includes("over")) {
+                        addTableLine($('#ageTable'), strings.hasOwnProperty("attribute_" + key) ? strings["attribute_" + key] : key, value);
+                    } else {
+                        addTableLine($('#idinTable'), strings.hasOwnProperty("attribute_" + key) ? strings["attribute_" + key] : key, value);
+                    }
                 });
             } else {
-                $.each(cred.attributes, function(key, value) {
-                    addTableLine($('#ageTable'), strings.hasOwnProperty("attribute_" + key) ? strings["attribute_" + key] : key, value);
-                });
+                $('#twoCredentialsWarning').show();
             }
         });
     }
