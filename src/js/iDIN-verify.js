@@ -2,7 +2,7 @@ getSetupFromJson(function() {
     var success_fun = function(data) {
         $("#result_status").html(strings.verify_success);
         $("#result_header").html(strings.verify_result);
-        var bd = jwt_decode(data).attributes["pbdf.pbdf.idin.dateofbirth"];
+        var bd = jwt_decode(data).attributes[conf.idin_credential_id + ".dateofbirth"];
         $("#token-content").html("<b>" + strings.verify_birthdate + "</b> " + bd);
         //TODO: check for birthdate
     }

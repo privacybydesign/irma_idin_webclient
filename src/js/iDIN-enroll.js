@@ -16,7 +16,7 @@ getSetupFromJson(function() {
 
     function displayAttributes (creds) {
         $.each(creds, function(i, cred) {
-            if (cred.credential === "pbdf.pbdf.idin"){
+            if (cred.credential === conf.idin_credential_id){
                 $.each(cred.attributes, function(key, value) {
                     addTableLine($('#idinTable'), strings.hasOwnProperty("attribute_" + key) ? strings["attribute_" + key] : key, value);
                 });
