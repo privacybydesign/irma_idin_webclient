@@ -10,11 +10,15 @@ module.exports = function (grunt) {
     if ( (typeof(grunt.option("language")) === "undefined") ) {
         console.log("INFO: No language chosen, assuming nl");
     }
+    if ( (typeof(grunt.option("idin_credential_id")) === "undefined") ) {
+        console.log("INFO: No idin_credential_id chosen, assuming pbdf.pbdf.idin");
+    }
 
     var conf = {
         idin_server_url: grunt.option("idin_server_url") || "<IDIN_SERVER_URL>",
         irma_server_url: grunt.option("irma_server_url") || "<IRMA_SERVER_URL>",
         language: grunt.option("language") || "nl",
+        idin_credential_id: grunt.option("idin_credential_id") || "pbdf.pbdf.idin",
     };
     conf.irma_server_url += "/api/v2";
 
