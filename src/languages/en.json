@@ -12,7 +12,7 @@
 	"enroll_header": "Beschikbare attributen",
 	"enroll_received_attributes": "De volgende attributen zijn beschikbaar gesteld door uw bank:",
 	"enroll_derived_attributes": "De volgende attributen zijn daaruit afgeleid:",
-	"enroll_two_credentials_warning": "In de IRMA app wordt geen onderscheid meer gemaakt tussen de beschikbaar gestelde atributen en de afgeleide attributen. Om de overgang van deze verandering soepel te laten verlopen, worden de afgeleide attributen tijdelijk dubbel door ons uitgegeven; eenmaal als onderdeel van het geheel van iDIN attributen en eenmaal los.",
+	"enroll_two_credentials_warning": "In november 2019 is een verandering in de structuur van de iDIN attributen in de IRMA-app doorgevoerd, waarbij leeftijdsgrenzen niet meer apart staan. Om deze verandering soepel te laten verlopen, worden deze leeftijdsgrenzen tijdelijk dubbel uitgegeven: eenmaal als onderdeel van het geheel van iDIN attributen en eenmaal los. Vanaf november 2020, als alle attributen in de oude structuur verlopen zijn, zal de uitgifte van de losse leeftijdsgrensattributen definitief worden uitgefaseerd.",
 	"enroll_clicktoload": "Klik de Laad attributen knop om deze attributen in uw IRMA app te laden.",
 	"enroll_load_button": "Laad attributen in uw IRMA app",
 	"done_title": "iDIN Attributen uitgegeven",
