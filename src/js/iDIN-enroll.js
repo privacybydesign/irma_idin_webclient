@@ -30,6 +30,7 @@ getSetupFromJson(function() {
     }
 
     function irma_session_failed (msg) {
+        $("#enroll-page").show();
         $("#enroll").prop('disabled', false);
         if(msg === 'CANCELLED') {
             showWarning(msg);
@@ -38,23 +39,28 @@ getSetupFromJson(function() {
         }
     }
 
-    //set issuing functionality to button
-    $("#enroll").on("click", function() {
-        // Clear errors
-        $(".form-group").removeClass("has-error");
-        $("#alert_box").empty();
-        //disable enroll button
-        $("#enroll").prop('disabled', true);
+    $(function() {
+        //set issuing functionality to button
+        let enrollButton = $("#enroll");
+        enrollButton.on("click", function () {
+            // Clear errors
+            $(".form-group").removeClass("has-error");
+            $("#alert_box").empty();
+            //disable enroll button
+            $("#enroll").prop('disabled', true);
 
-        irma.startSession(conf.irma_server_url, Cookies.get("jwt"), "publickey")
-            .then(({sessionPtr, token}) => irma.handleSession(sessionPtr, {...irma_server_conf, token}))
-            .then(() => {
-                window.location.replace(doneURL);
-            }, irma_session_failed);
+            irma.startSession(conf.irma_server_url, Cookies.get("jwt"), "publickey")
+              .then(({sessionPtr, token}) => irma.handleSession(sessionPtr, {...irma_server_conf, token}))
+              .then(() => {
+                  window.location.replace(doneURL);
+              }, irma_session_failed);
+        });
+
+        //decode the issuing JWT and show the values in a table
+        var decoded = jwt_decode(Cookies.get("jwt"));
+        displayAttributes(decoded.iprequest.request.credentials);
+
+        enrollButton.click();
     });
-
-    //decode the issuing JWT and show the values in a table
-    var decoded = jwt_decode(Cookies.get("jwt"));
-    displayAttributes(decoded.iprequest.request.credentials)
 
 });
