@@ -6,7 +6,7 @@ function getSetupFromJson(successFunc) {
     $.getJSON("conf.json", function(json) {
         conf = json;
         irma_server_conf = {
-            lang: conf.language,
+            language: conf.language,
             server: conf.irma_server_url,
             legacyResultJwt: true,
         };
