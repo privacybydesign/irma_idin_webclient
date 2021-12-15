@@ -29,7 +29,7 @@ module.exports = function (grunt) {
             node_modules: {
                 cwd: "node_modules",
                 src: [
-                    "@privacybydesign/irmajs/dist/irma.js",
+                    "@privacybydesign/irma-frontend/dist/irma.js",
                     "bootstrap/dist/**",
                     "jquery/dist/jquery.min.js",
                     "js-cookie/src/js.cookie.js",

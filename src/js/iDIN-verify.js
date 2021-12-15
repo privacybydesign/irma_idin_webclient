@@ -20,7 +20,7 @@ getSetupFromJson(function() {
     }
 
     function irma_session_failed (msg) {
-        if(msg === 'CANCELLED') {
+        if(msg === "Aborted") {
             cancel_fun(msg);
         } else {
             error_fun(msg);
@@ -35,11 +35,26 @@ getSetupFromJson(function() {
             type: "GET",
             url: server + "/verify",
             success: function(data) {
-                irma.startSession(conf.irma_server_url, data, "publickey")
-                    .then(({sessionPtr, token}) => irma.handleSession(sessionPtr, {...irma_server_conf, token}))
+                irma.newPopup({
+                    language: irma_server_conf.language,
+                    session: {
+                        url: irma_server_conf.server,
+                        start: {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "text/plain",
+                            },
+                            body: data,
+                        },
+                        result: {
+                            url: (o, {sessionToken}) => `${o.url}/session/${sessionToken}/getproof`,
+                        },
+                    },
+                })
+                    .start()
                     .then(success_fun, irma_session_failed);
             },
-            error: showError,
+            error: (err) => showError(err.statusText),
         });
     });
 

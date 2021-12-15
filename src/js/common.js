@@ -8,7 +8,6 @@ function getSetupFromJson(successFunc) {
         irma_server_conf = {
             language: conf.language,
             server: conf.irma_server_url,
-            legacyResultJwt: true,
         };
         server = `${conf.idin_server_url}/api/v1/idin`;
 
