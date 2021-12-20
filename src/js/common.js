@@ -1,9 +1,9 @@
 var conf, strings, server, irma_server_conf;
 
 function getSetupFromJson(successFunc) {
-    console.log("Running getSetupFromJson");
+    console.log('Running getSetupFromJson');
 
-    $.getJSON("conf.json", function(json) {
+    $.getJSON('conf.json', function(json) {
         conf = json;
         irma_server_conf = {
             language: conf.language,
@@ -11,27 +11,27 @@ function getSetupFromJson(successFunc) {
         };
         server = `${conf.idin_server_url}/api/v1/idin`;
 
-        console.log("Configuration:", conf);
+        console.log('Configuration:', conf);
 
-        $.getJSON("languages/" + conf.language + ".json", function(text) {
+        $.getJSON('languages/' + conf.language + '.json', function(text) {
             strings = text;
-            console.log("Loaded language strings");
+            console.log('Loaded language strings');
             successFunc();
         });
     });
 }
 
 function showError(message) {
-    $("#alert_box").html("<div class=\"alert alert-danger\" role=\"alert\">"
-        + "<strong>" + message + "</strong></div>");
+    $('#alert_box').html('<div class="alert alert-danger" role="alert">'
+        + '<strong>' + message + '</strong></div>');
 }
 
 var showWarning = function(msg) {
-    $("#alert_box").html("<div class=\"alert alert-warning\" role=\"alert\">"
-        + "<strong>Warning:</strong> " + msg + "</div>");
+    $('#alert_box').html('<div class="alert alert-warning" role="alert">'
+        + '<strong>Warning:</strong> ' + msg + '</div>');
 };
 
 var showSuccess = function(msg) {
-    $("#alert_box").html("<div class=\"alert alert-success\" role=\"alert\">"
-        + msg + "</div>");
+    $('#alert_box').html('<div class="alert alert-success" role="alert">'
+        + msg + '</div>');
 };
