@@ -1,3 +1,3 @@
 $(function() {
-    showError(Cookies.get("error"));
+    showError(Cookies.get('error'));
 });
