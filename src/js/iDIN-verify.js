@@ -48,6 +48,7 @@ getSetupFromJson(function() {
                         },
                         result: {
                             url: (o, {sessionToken}) => `${o.url}/session/${sessionToken}/getproof`,
+                            parseResponse: r => r.text(),
                         },
                     },
                 })
