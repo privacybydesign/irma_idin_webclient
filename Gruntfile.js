@@ -29,7 +29,8 @@ module.exports = function (grunt) {
             node_modules: {
                 cwd: "node_modules",
                 src: [
-                    "@privacybydesign/irma-frontend/dist/irma.js",
+                    "@privacybydesign/yivi-frontend/dist/yivi.js",
+                    "@privacybydesign/yivi-css/dist/yivi.min.css",
                     "bootstrap/dist/**",
                     "jquery/dist/jquery.min.js",
                     "js-cookie/src/js.cookie.js",
