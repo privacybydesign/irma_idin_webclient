@@ -4,21 +4,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <script type="text/javascript" src="node_modules/jwt-decode/build/jwt-decode.js"></script>
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="node_modules/@privacybydesign/irma-frontend/dist/irma.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/iDIN-verify.js"></script>
-
     <title><%= done_title %></title>
+
+    <script type="module" src="./js/iDIN-verify.js"></script>
 </head>
 
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
             <h2><%= done_header %></h2>
 
             <div id="alert_box"></div>

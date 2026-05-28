@@ -5,26 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="js/common.js"></script>
-    <script type="text/javascript" src="js/iDIN.js"></script>
-
     <title><%= index_title %></title>
+
+    <script type="module" src="./js/iDIN.js"></script>
 </head>
 
 <body>
 
 <div class="container">
     <div class="row">
-        <div id="logo" class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div id="logo" class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
             <hr/>
             <a href="#">
                 <img class="logo-img" src="images/iDIN_logo_64.png" />
             </a>
         </div>
-        <div class="col-xs-12 col-md-8 col-lg-6 col-md-offset-2 col-lg-offset-3">
+        <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
             <h2><%= index_header %> <a href="https://www.idin.nl/" target="_blank">iDIN</a></h2>
 
             <div id="alert_box"></div>
@@ -32,7 +28,7 @@
             <p><%= index_explanation %></p>
             <p><%= index_selectbank %></p>
             <form id='form' method="post">
-                <select form='form' id="bank-select">
+                <select form='form' id="bank-select" class="form-select">
                     <option value="default"><%= index_defaultoption %></option>
                 </select>
                 <input type="submit" id="continue" value="Ga naar uw bank" disabled="true" form='form' class="btn btn-primary">

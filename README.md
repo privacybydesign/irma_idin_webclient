@@ -2,14 +2,39 @@
 The IRMA iDIN attribute issuance webapp can be used as a front-end for the [IRMA iDIN issuer](https://github.com/privacybydesign/irma_idin_issuer).
 
 ## Building
-The webapp can be either fully build and configured using Grunt or you can specify the configuration after having run Grunt by editing the `conf.json` file in the build directory.
 
-In case of fully building the webapp using Grunt, the following command can be used: 
+The webapp is built with [Vite](https://vitejs.dev/). The build language and runtime URLs are passed via environment variables and baked into the output (the language strings into the HTML, the URLs into `conf.json`).
 
-    grunt --language="en" --idin_server_url="<URL1>" --irma_server_url="<URL2>"
-    
-If you want to set the configuration manually, you only have to run:
+Install dependencies:
 
-    grunt --language="en"
-    
-The configuration can then be edited in the `build/conf.json` file.
+```sh
+yarn install
+```
+
+Build for a single language (the output ends up in `build/`):
+
+```sh
+WEBCLIENT_LANG=en \
+IDIN_SERVER_URL="<URL1>" \
+IRMA_SERVER_URL="<URL2>" \
+yarn build
+```
+
+Shortcuts that just set the language:
+
+```sh
+yarn build:en
+yarn build:nl
+```
+
+If you do not pass `IDIN_SERVER_URL` / `IRMA_SERVER_URL` at build time, the resulting `build/conf.json` contains placeholder values that you can edit afterwards.
+
+Optional environment variable: `IDIN_CREDENTIAL_ID` (defaults to `pbdf.pbdf.idin`).
+
+## Development
+
+```sh
+WEBCLIENT_LANG=en yarn dev
+```
+
+Starts the Vite dev server with hot module replacement.

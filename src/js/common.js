@@ -1,37 +1,38 @@
-var conf, strings, server, irma_server_conf;
+import $ from 'jquery';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function getSetupFromJson(successFunc) {
-    console.log('Running getSetupFromJson');
-
-    $.getJSON('conf.json', function(json) {
-        conf = json;
-        irma_server_conf = {
-            language: conf.language,
-            server: conf.irma_server_url,
-        };
-        server = `${conf.idin_server_url}/api/v1/idin`;
-
-        console.log('Configuration:', conf);
-
-        $.getJSON('languages/' + conf.language + '.json', function(text) {
-            strings = text;
-            console.log('Loaded language strings');
-            successFunc();
-        });
+export function setup() {
+    console.log('Running setup');
+    return new Promise((resolve, reject) => {
+        $.getJSON('conf.json', function (conf) {
+            console.log('Configuration:', conf);
+            $.getJSON('languages/' + conf.language + '.json', function (strings) {
+                console.log('Loaded language strings');
+                resolve({
+                    conf,
+                    strings,
+                    server: `${conf.idin_server_url}/api/v1/idin`,
+                    irma_server_conf: {
+                        language: conf.language,
+                        server: conf.irma_server_url,
+                    },
+                });
+            }).fail(reject);
+        }).fail(reject);
     });
 }
 
-function showError(message) {
+export function showError(message) {
     $('#alert_box').html('<div class="alert alert-danger" role="alert">'
         + '<strong>' + message + '</strong></div>');
 }
 
-var showWarning = function(msg) {
+export function showWarning(msg) {
     $('#alert_box').html('<div class="alert alert-warning" role="alert">'
         + '<strong>Warning:</strong> ' + msg + '</div>');
-};
+}
 
-var showSuccess = function(msg) {
+export function showSuccess(msg) {
     $('#alert_box').html('<div class="alert alert-success" role="alert">'
         + msg + '</div>');
-};
+}

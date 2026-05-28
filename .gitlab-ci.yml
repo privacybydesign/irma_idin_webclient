@@ -1,16 +1,17 @@
-image: privacybydesign/node_yarn:latest
+image: node:20
 
 stages:
   - build
 
 before_script:
   - set -euxo pipefail
-  - yarn install
+  - corepack enable
+  - yarn install --immutable
 
 build-en:
   stage: build
   script:
-    - yarn run grunt build --language="en"
+    - yarn build:en
   artifacts:
     # Disabling artifact expiry is not supported yet, so make
     expire_in: 100 year
@@ -20,7 +21,7 @@ build-en:
 build-nl:
   stage: build
   script:
-    - yarn run grunt build --language="nl"
+    - yarn build:nl
   artifacts:
     # Disabling artifact expiry is not supported yet, so make
     expire_in: 100 year
