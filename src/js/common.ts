@@ -79,6 +79,9 @@ export function clearAlerts(): void {
     if (box) box.replaceChildren();
 }
 
+// The Bootstrap-3 `has-error` class is never added anywhere in this codebase;
+// this helper only ever removes it. Kept as a harmless no-op to minimize the
+// diff of the Bootstrap-3 -> Bootstrap-5 migration.
 export function clearFormErrors(): void {
     document.querySelectorAll('.form-group').forEach((el) => el.classList.remove('has-error'));
 }

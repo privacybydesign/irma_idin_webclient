@@ -94,15 +94,13 @@ function startEnroll(enrollBtn: HTMLButtonElement | null): void {
         }, irmaSessionFailed);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const enrollButton = document.getElementById('enroll') as HTMLButtonElement | null;
-    enrollButton?.addEventListener('click', () => startEnroll(enrollButton));
+const enrollButton = document.getElementById('enroll') as HTMLButtonElement | null;
+enrollButton?.addEventListener('click', () => startEnroll(enrollButton));
 
-    const jwt = Cookies.get('jwt');
-    if (jwt) {
-        const decoded = jwtDecode<IssuanceJwt>(jwt);
-        displayAttributes(decoded.iprequest.request.credentials);
-    }
+const jwt = Cookies.get('jwt');
+if (jwt) {
+    const decoded = jwtDecode<IssuanceJwt>(jwt);
+    displayAttributes(decoded.iprequest.request.credentials);
+}
 
-    enrollButton?.click();
-});
+enrollButton?.click();

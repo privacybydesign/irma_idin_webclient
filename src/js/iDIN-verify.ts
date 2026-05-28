@@ -3,7 +3,7 @@ import { newPopup } from '@privacybydesign/yivi-frontend';
 import { setup, showError } from './common';
 
 interface AttributeJwt {
-    attributes: Record<string, string>;
+    attributes: Record<string, string | undefined>;
 }
 
 const { conf, strings, server, irma_server_conf } = await setup();
@@ -26,12 +26,15 @@ function onSuccess(data: unknown): void {
         console.log('Unexpected verify response:', data);
         return;
     }
-    setText('result_status', strings.verify_success);
-    setText('result_header', strings.verify_result);
     const decoded = jwtDecode<AttributeJwt>(data);
     const birthdate = decoded.attributes[`${conf.idin_credential_id}.dateofbirth`];
+    if (!birthdate) {
+        onError(`Missing ${conf.idin_credential_id}.dateofbirth attribute in proof`);
+        return;
+    }
+    setText('result_status', strings.verify_success);
+    setText('result_header', strings.verify_result);
     renderBirthdate(birthdate);
-    // TODO: check for birthdate
 }
 
 function onCancel(): void {

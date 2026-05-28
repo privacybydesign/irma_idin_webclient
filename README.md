@@ -45,3 +45,8 @@ runtime framework (no jQuery). Run a type-check with:
 ```sh
 yarn typecheck
 ```
+
+`yarn install` will emit a `@popperjs/core` unmet-peer-dependency warning
+from Bootstrap; it is safe to ignore. We only import Bootstrap's CSS
+(`bootstrap/dist/css/bootstrap.min.css`), not the JS components that depend
+on Popper, so Popper is not actually needed at runtime.

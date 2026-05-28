@@ -10,7 +10,31 @@ const idinCredentialId = process.env.IDIN_CREDENTIAL_ID || 'pbdf.pbdf.idin';
 
 const srcRoot = resolve(import.meta.dirname, 'src');
 const languageFile = resolve(srcRoot, `languages/${language}.json`);
-const strings = JSON.parse(readFileSync(languageFile, 'utf-8'));
+
+// Replicate grunt-multi-lang-site-generator's parse_vocab_item(): rewrite the
+// {URL=X}Y{/URL}, {B}…{/B}, and {P}…{/P} markers used in src/languages/*.json
+// into real HTML. Without this, e.g. error_text1 leaks "{URL=index.html}…{/URL}"
+// straight into the rendered error page.
+function parseVocabItem(value) {
+  if (typeof value !== 'string') return value;
+  return value
+    .replace(/\{URL=([^}]+)\}([\s\S]*?)\{\/URL\}/g, '<a href="$1" target="_top">$2</a>')
+    .replace(/\{B\}([\s\S]*?)\{\/B\}/g, '<strong>$1</strong>')
+    .replace(/\{P\}([\s\S]*?)\{\/P\}/g, '<p>$1</p>');
+}
+
+function processStrings(raw) {
+  const out = {};
+  for (const [k, v] of Object.entries(raw)) out[k] = parseVocabItem(v);
+  return out;
+}
+
+function loadStrings() {
+  const raw = JSON.parse(readFileSync(languageFile, 'utf-8'));
+  return { raw, processed: processStrings(raw) };
+}
+
+const { processed: strings } = loadStrings();
 
 const conf = {
   idin_server_url: idinServerUrl,
@@ -34,20 +58,36 @@ function ejsTemplates() {
   };
 }
 
-function emitRuntimeAssets() {
+function runtimeAssets() {
+  const confBody = `${JSON.stringify(conf, null, 2)}\n`;
+  const languagesBody = `${JSON.stringify(processStrings(JSON.parse(readFileSync(languageFile, 'utf-8'))), null, 2)}\n`;
+  const languagesPath = `/languages/${language}.json`;
+
   return {
     name: 'irma-idin-runtime-assets',
-    apply: 'build',
     generateBundle() {
-      this.emitFile({
-        type: 'asset',
-        fileName: 'conf.json',
-        source: `${JSON.stringify(conf, null, 2)}\n`,
-      });
+      this.emitFile({ type: 'asset', fileName: 'conf.json', source: confBody });
       this.emitFile({
         type: 'asset',
         fileName: `languages/${language}.json`,
-        source: readFileSync(languageFile, 'utf-8'),
+        source: languagesBody,
+      });
+    },
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        if (!req.url) return next();
+        const path = req.url.split('?')[0];
+        if (path === '/conf.json') {
+          res.setHeader('Content-Type', 'application/json');
+          res.end(confBody);
+          return;
+        }
+        if (path === languagesPath) {
+          res.setHeader('Content-Type', 'application/json');
+          res.end(languagesBody);
+          return;
+        }
+        next();
       });
     },
   };
@@ -69,5 +109,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [ejsTemplates(), emitRuntimeAssets()],
+  plugins: [ejsTemplates(), runtimeAssets()],
 });
