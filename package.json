@@ -1,20 +1,29 @@
 {
   "name": "irma_idin_webclient",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "IRMA iDIN webclient",
   "author": "Fabian van den Broek, Sietse Ringers, Radboud University, Privacy by Design Foundation",
   "license": "BSD-3-Clause",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "build:en": "cross-env WEBCLIENT_LANG=en vite build",
+    "build:nl": "cross-env WEBCLIENT_LANG=nl vite build",
+    "dev": "vite",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@privacybydesign/yivi-frontend": "^1.0.3",
+    "bootstrap": "^5.3.3",
+    "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0"
+  },
   "devDependencies": {
-    "@privacybydesign/irma-frontend": "^0.4.3",
-    "bootstrap": "~3.4.1",
-    "grunt": "^0.4.5",
-    "grunt-cli": "1.3.2",
-    "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-json-generator": "^0.1.0",
-    "grunt-multi-lang-site-generator": "^0.6.0",
-    "jquery": "~2.1.4",
-    "js-cookie": "2.1.3",
-    "jwt-decode": "~1.4.0"
+    "@types/js-cookie": "^3.0.6",
+    "cross-env": "^7.0.3",
+    "ejs": "^3.1.10",
+    "typescript": "^5.7.2",
+    "vite": "^6.4.2"
   }
 }
