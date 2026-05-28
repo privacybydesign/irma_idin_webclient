@@ -38,3 +38,10 @@ WEBCLIENT_LANG=en yarn dev
 ```
 
 Starts the Vite dev server with hot module replacement.
+
+Page scripts live under `src/js/` and are written in TypeScript with no
+runtime framework (no jQuery). Run a type-check with:
+
+```sh
+yarn typecheck
+```

@@ -10,18 +10,20 @@
     "build:en": "cross-env WEBCLIENT_LANG=en vite build",
     "build:nl": "cross-env WEBCLIENT_LANG=nl vite build",
     "dev": "vite",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@privacybydesign/yivi-frontend": "^1.0.3",
     "bootstrap": "^5.3.3",
-    "jquery": "^3.7.1",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
     "cross-env": "^7.0.3",
     "ejs": "^3.1.10",
+    "typescript": "^5.7.2",
     "vite": "^6.4.2"
   }
 }
